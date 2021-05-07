@@ -19,6 +19,8 @@ public class DetectPlayer : MonoBehaviour
     private bool isPlayerIncognito = false;
     private float speed;
     private float maxSqrtVelocity;
+    [SerializeField] float maxWaitTime = 2.0f;
+    private float waitTime;
 
     // Start is called before the first frame update
     void Start()
@@ -36,6 +38,8 @@ public class DetectPlayer : MonoBehaviour
 
         speed = policemanPatrol.GetSpeed();
         maxSqrtVelocity = policemanPatrol.GetMaxSqrtVelocity() * 3;
+
+        waitTime = maxWaitTime;
     }
 
     // Update is called once per frame
@@ -58,9 +62,20 @@ public class DetectPlayer : MonoBehaviour
 
             if (!playerCaught && detected && isPlayerIncognito)
             {
-                policemanPatrol.ResumePatrolling();
-                // Player is incognito
-                gameManager.SetPlayerStatus(0);
+                if (waitTime <= 0)
+                {
+                    objectAnim.SetBool(isRunningHash, true);
+                    policemanPatrol.ResumePatrolling();
+                    // Player is incognito
+                    gameManager.SetPlayerStatus(0);
+                    waitTime = maxWaitTime;
+                    detected = false;
+                }
+                else
+                {
+                    objectAnim.SetBool(isRunningHash, false);
+                    waitTime -= Time.deltaTime;
+                }
             }
         }
     }
