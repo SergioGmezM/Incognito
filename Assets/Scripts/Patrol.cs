@@ -8,6 +8,7 @@ public class Patrol : MonoBehaviour
 
     public Transform[] patrolPoints;
 
+    private GameManager gameManager;
     private Rigidbody policemanRB;
     private Animator objectAnim;
     private int isWalkingHash;
@@ -23,6 +24,7 @@ public class Patrol : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gameManager = GameObject.FindGameObjectWithTag("Game Manager").GetComponent<GameManager>();
         policemanRB = GetComponent<Rigidbody>();
         objectAnim = GetComponent<Animator>();
         isWalkingHash = Animator.StringToHash("isWalking");
@@ -39,7 +41,7 @@ public class Patrol : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (!stopPatrolling)
+        if (gameManager.IsGameActive() && !stopPatrolling)
         {
             PatrolScene();
         }
