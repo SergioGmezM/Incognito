@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public bool incognito = false;
+
     private Animator playerAnim;
     private Rigidbody playerRB;
     private int isWalkingHash;
