@@ -18,6 +18,7 @@ public class Patrol : MonoBehaviour
     private float waitTime;
     private int nextPoint;
     private bool pointReached;
+    private bool stopPatrolling;
 
     // Start is called before the first frame update
     void Start()
@@ -38,7 +39,14 @@ public class Patrol : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (!stopPatrolling)
+        {
+            PatrolScene();
+        }
+    }
 
+    private void PatrolScene()
+    {
         if (pointReached)
         {
             if (waitTime < 0)
@@ -57,7 +65,8 @@ public class Patrol : MonoBehaviour
             {
                 waitTime -= Time.deltaTime;
             }
-        } else
+        }
+        else
         {
             if (Vector3.Distance(transform.position, patrolPoints[nextPoint].position) > THRESHOLD)
             {
@@ -82,5 +91,27 @@ public class Patrol : MonoBehaviour
                 pointReached = true;
             }
         }
+    }
+
+    public void StopPatrolling()
+    {
+        pointReached = true;
+        waitTime = -1.0f;
+        stopPatrolling = true;
+    }
+
+    public void ResumePatrolling()
+    {
+        stopPatrolling = false;
+    }
+
+    public float GetSpeed()
+    {
+        return speed;
+    }
+
+    public float GetMaxSqrtVelocity()
+    {
+        return maxSqrtVelocity;
     }
 }
