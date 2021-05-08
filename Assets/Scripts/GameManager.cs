@@ -12,21 +12,26 @@ public class GameManager : MonoBehaviour
     public GameObject UIScreen;
     public GameObject helpScreen;
 
+    private TextMeshProUGUI scoreText;
     private GameObject incognitoText;
     private GameObject exposedText;
     private GameObject runText;
     private bool isGameActive = false;
     public int murderCommitted = -1;
     private int victims;
+    private int nPeople;
     private int status;
 
     // Start is called before the first frame update
     void Start()
     {
+        nPeople = GameObject.Find("Croud").GetComponent<Transform>().childCount;
+
         titleScreen.SetActive(true);
         UIScreen.SetActive(false);
         gameOverScreen.SetActive(false);
 
+        scoreText = UIScreen.GetComponent<Transform>().GetChild(0).GetComponent<Transform>().GetChild(0).GetComponent<TextMeshProUGUI>();
         incognitoText = UIScreen.GetComponent<Transform>().GetChild(0).GetComponent<Transform>().GetChild(1).gameObject;
         exposedText = UIScreen.GetComponent<Transform>().GetChild(0).GetComponent<Transform>().GetChild(2).gameObject;
         runText = UIScreen.GetComponent<Transform>().GetChild(0).GetComponent<Transform>().GetChild(3).gameObject;
@@ -114,6 +119,11 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
+    private void UpdateScore()
+    {
+        scoreText.SetText("VÍCTIMAS: " + victims + "/" + nPeople);
+    }
+
     public void SetPlayerStatus(int status)
     {
         this.status = status;
@@ -122,6 +132,15 @@ public class GameManager : MonoBehaviour
     public void SetMurderCommitted(int murderCommitted)
     {
         this.murderCommitted = murderCommitted;
+        victims++;
+
+        UpdateScore();
+
+        /*
+        if (victims == nPeople)
+        {
+            // Finish game
+        }*/
     }
 
     public int GetMurderCommitted()

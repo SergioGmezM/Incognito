@@ -50,7 +50,7 @@ public class DetectPlayer : MonoBehaviour
             Vector3 targetDirection = playerTransform.position - transform.position;
             float angle = Vector3.Angle(targetDirection, transform.forward);
             float distance = Vector3.Distance(playerTransform.position, transform.position);
-            isPlayerIncognito = playerController.incognito;
+            isPlayerIncognito = playerController.IsPlayerIncognito();
 
             if (!playerCaught && distance < detectionDistance && angle < detectionAngle && !isPlayerIncognito)
             {
@@ -101,7 +101,7 @@ public class DetectPlayer : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player") && !isPlayerIncognito)
         {
             objectAnim.SetBool(isRunningHash, false);
             policemanRB.velocity = Vector3.zero;

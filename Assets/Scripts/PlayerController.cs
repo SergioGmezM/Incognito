@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public bool incognito = false;
-
     private GameManager gameManager;
     private Animator playerAnim;
     private Rigidbody playerRB;
@@ -14,6 +12,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float speed = 100.0f;
     [SerializeField] private float rotationSpeed = 0.5f;
     [SerializeField] private float maxSqrtVelocity = 500.0f;
+    [SerializeField] private bool incognito = false;
     private bool isWalking;
     private bool isRunning;
     private Vector3 direction;
@@ -120,8 +119,13 @@ public class PlayerController : MonoBehaviour
 
             Quaternion targetRotation = Quaternion.LookRotation(direction);
 
-            //Rotate smoothly to this target:
+            // Rotate smoothly to this target:
             transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotationSpeed);
+
+            // Detect nearby colliders
+            Collider[] hitColliders = Physics.OverlapSphere(transform.position, 1);
+            // Two of them are the player and the ground respectively
+            incognito = hitColliders.Length >= 4 ? true : false;
         }
     }
 
@@ -145,5 +149,10 @@ public class PlayerController : MonoBehaviour
                 }
             }
         } 
+    }
+
+    public bool IsPlayerIncognito()
+    {
+        return this.incognito;
     }
 }
