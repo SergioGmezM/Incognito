@@ -35,6 +35,9 @@ public class GameManager : MonoBehaviour
         incognitoText = UIScreen.GetComponent<Transform>().GetChild(0).GetComponent<Transform>().GetChild(1).gameObject;
         exposedText = UIScreen.GetComponent<Transform>().GetChild(0).GetComponent<Transform>().GetChild(2).gameObject;
         runText = UIScreen.GetComponent<Transform>().GetChild(0).GetComponent<Transform>().GetChild(3).gameObject;
+
+        victims = 0;
+        UpdateScore();
     }
 
     // Update is called once per frame

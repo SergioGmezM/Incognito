@@ -16,6 +16,7 @@ public class EscapeToSafety : MonoBehaviour
     [SerializeField] private float speed = 300.0f;
     [SerializeField] private float maxSqrtVelocity = 700.0f;
     private bool escaping;
+    private int currentCluster;
     private int nextCluster;
     private int previousMurderCluster;
 
@@ -33,6 +34,18 @@ public class EscapeToSafety : MonoBehaviour
 
         escaping = false;
         nextCluster = -1;
+
+        currentCluster = 0;
+        float minDistance = Vector3.Distance(transform.position, clusterPoints[0].position);
+        for (int i = 1; i < clusterPoints.Length; i++)
+        {
+            float distance = Vector3.Distance(transform.position, clusterPoints[i].position);
+            if (distance < minDistance)
+            {
+                currentCluster = i;
+                minDistance = distance;
+            }
+        }
     }
 
     // Update is called once per frame
@@ -40,6 +53,11 @@ public class EscapeToSafety : MonoBehaviour
     {
         FindNewCluster();
         EscapeToCluster();
+    }
+
+    public int GetCurrentCluster()
+    {
+        return this.currentCluster;
     }
 
     private void FindNewCluster()
@@ -88,6 +106,7 @@ public class EscapeToSafety : MonoBehaviour
 
                 objectRB.velocity = Vector3.zero;
 
+                currentCluster = nextCluster;
                 nextCluster = -1;
                 escaping = false;
             }

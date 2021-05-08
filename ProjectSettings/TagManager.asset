@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Policeman
   - Game Manager
+  - Civilian
+  - Ground
+  - Cluster
   layers:
   - Default
   - TransparentFX
