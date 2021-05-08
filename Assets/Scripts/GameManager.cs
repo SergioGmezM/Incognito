@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     private GameObject exposedText;
     private GameObject runText;
     private bool isGameActive = false;
+    public int murderCommitted = -1;
     private int victims;
     private int status;
 
@@ -74,6 +75,7 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
+        murderCommitted = -1;
         isGameActive = true;
         titleScreen.SetActive(false);
         UIScreen.SetActive(true);
@@ -115,5 +117,15 @@ public class GameManager : MonoBehaviour
     public void SetPlayerStatus(int status)
     {
         this.status = status;
+    }
+
+    public void SetMurderCommitted(int murderCommitted)
+    {
+        this.murderCommitted = murderCommitted;
+    }
+
+    public int GetMurderCommitted()
+    {
+        return murderCommitted;
     }
 }
