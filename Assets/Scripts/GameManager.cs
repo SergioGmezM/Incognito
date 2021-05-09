@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
 {
     public GameObject gameOverScreen;
     public GameObject titleScreen;
+    public GameObject victoryScreen;
     public GameObject UIScreen;
     public GameObject helpScreen;
 
@@ -16,6 +17,7 @@ public class GameManager : MonoBehaviour
     private GameObject incognitoText;
     private GameObject exposedText;
     private GameObject runText;
+    private GameObject attackText;
     private bool isGameActive = false;
     public int murderCommitted = -1;
     private int victims;
@@ -30,11 +32,13 @@ public class GameManager : MonoBehaviour
         titleScreen.SetActive(true);
         UIScreen.SetActive(false);
         gameOverScreen.SetActive(false);
+        victoryScreen.SetActive(false);
 
         scoreText = UIScreen.GetComponent<Transform>().GetChild(0).GetComponent<Transform>().GetChild(0).GetComponent<TextMeshProUGUI>();
         incognitoText = UIScreen.GetComponent<Transform>().GetChild(0).GetComponent<Transform>().GetChild(1).gameObject;
         exposedText = UIScreen.GetComponent<Transform>().GetChild(0).GetComponent<Transform>().GetChild(2).gameObject;
         runText = UIScreen.GetComponent<Transform>().GetChild(0).GetComponent<Transform>().GetChild(3).gameObject;
+        attackText = UIScreen.GetComponent<Transform>().GetChild(0).GetComponent<Transform>().GetChild(4).gameObject;
 
         victims = 0;
         UpdateScore();
@@ -97,6 +101,16 @@ public class GameManager : MonoBehaviour
         UIScreen.SetActive(false);
     }
 
+    public void ShowAttackText()
+    {
+        attackText.SetActive(true);
+    }
+
+    public void HideAttackText()
+    {
+        attackText.SetActive(false);
+    }
+
     public void ResumeGame()
     {
         helpScreen.SetActive(false);
@@ -114,6 +128,13 @@ public class GameManager : MonoBehaviour
     {
         UIScreen.SetActive(false);
         gameOverScreen.SetActive(true);
+        isGameActive = false;
+    }
+
+    public void FinishGame()
+    {
+        UIScreen.SetActive(false);
+        victoryScreen.SetActive(true);
         isGameActive = false;
     }
 
@@ -139,11 +160,10 @@ public class GameManager : MonoBehaviour
 
         UpdateScore();
 
-        /*
         if (victims == nPeople)
         {
-            // Finish game
-        }*/
+            FinishGame();
+        }
     }
 
     public int GetMurderCommitted()

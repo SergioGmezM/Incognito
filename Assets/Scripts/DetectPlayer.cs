@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class DetectPlayer : MonoBehaviour
 {
+    public AudioClip hitSound;
+
     private GameManager gameManager;
     private Transform playerTransform;
     private PlayerController playerController;
     private Patrol policemanPatrol;
     private Rigidbody policemanRB;
     private Animator objectAnim;
+    private AudioSource objectAudio;
     private int isWalkingHash;
     private int isRunningHash;
     private int isDeadHash;
+    private int attackTrigHash;
     [SerializeField] private float detectionDistance;
     [SerializeField] private float detectionAngle;
     private bool detected = false;
@@ -32,9 +36,12 @@ public class DetectPlayer : MonoBehaviour
         policemanPatrol = GetComponent<Patrol>();
         policemanRB = GetComponent<Rigidbody>();
         objectAnim = GetComponent<Animator>();
+        objectAudio = GetComponent<AudioSource>();
+        
         isWalkingHash = Animator.StringToHash("isWalking");
         isRunningHash = Animator.StringToHash("isRunning");
         isDeadHash = Animator.StringToHash("isDead");
+        attackTrigHash = Animator.StringToHash("attackTrig");
 
         objectAnim.SetBool(isWalkingHash, false);
 
@@ -103,10 +110,12 @@ public class DetectPlayer : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Player") && !isPlayerIncognito)
+        if (gameManager.IsGameActive() && collision.gameObject.CompareTag("Player") && !isPlayerIncognito)
         {
             objectAnim.SetBool(isRunningHash, false);
+            objectAnim.SetTrigger(attackTrigHash);
             policemanRB.velocity = Vector3.zero;
+            objectAudio.PlayOneShot(hitSound);
             collision.gameObject.GetComponent<Animator>().SetBool(isDeadHash, true);
             playerCaught = true;
             gameManager.GameOver();

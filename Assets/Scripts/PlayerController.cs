@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public AudioClip hitSound;
+
     private GameManager gameManager;
     private Animator playerAnim;
     private Rigidbody playerRB;
+    private AudioSource playerAudio;
     private int isWalkingHash;
     private int isRunningHash;
     private int attackTrigHash;
@@ -28,6 +31,7 @@ public class PlayerController : MonoBehaviour
         gameManager = GameObject.FindGameObjectWithTag("Game Manager").GetComponent<GameManager>();
         playerAnim = GetComponent<Animator>();
         playerRB = GetComponent<Rigidbody>();
+        playerAudio = GetComponent<AudioSource>();
         isWalkingHash = Animator.StringToHash("isWalking");
         isRunningHash = Animator.StringToHash("isRunning");
         attackTrigHash = Animator.StringToHash("attackTrig");
@@ -198,6 +202,7 @@ public class PlayerController : MonoBehaviour
             // Commit murder
             if (canAttack)
             {
+                gameManager.ShowAttackText();
                 AttackCivilian(hitColliders);
             }
         }
@@ -208,11 +213,13 @@ public class PlayerController : MonoBehaviour
             // Commit murder
             if (canAttack)
             {
+                gameManager.ShowAttackText();
                 AttackCivilian(hitColliders);
             }
         }
         else
         {
+            gameManager.HideAttackText();
             incognito = false;
             gameManager.SetPlayerStatus(1);
         }
@@ -257,11 +264,13 @@ public class PlayerController : MonoBehaviour
 
             // Play meelee attack for player
             playerAnim.SetTrigger(attackTrigHash);
+            playerAudio.PlayOneShot(hitSound);
             hitColliders[nearestCivilian].gameObject.GetComponent<Animator>().SetBool(isDeadHash, true);
 
             canAttack = false;
             int murderCommitted = hitColliders[nearestCivilian].gameObject.GetComponent<EscapeToSafety>().GetCurrentCluster();
             gameManager.SetMurderCommitted(murderCommitted);
+            gameManager.HideAttackText();
         }
     }
 }
