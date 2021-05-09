@@ -12,6 +12,7 @@ public class DetectPlayer : MonoBehaviour
     private Animator objectAnim;
     private int isWalkingHash;
     private int isRunningHash;
+    private int isDeadHash;
     [SerializeField] private float detectionDistance;
     [SerializeField] private float detectionAngle;
     private bool detected = false;
@@ -33,6 +34,7 @@ public class DetectPlayer : MonoBehaviour
         objectAnim = GetComponent<Animator>();
         isWalkingHash = Animator.StringToHash("isWalking");
         isRunningHash = Animator.StringToHash("isRunning");
+        isDeadHash = Animator.StringToHash("isDead");
 
         objectAnim.SetBool(isWalkingHash, false);
 
@@ -105,6 +107,7 @@ public class DetectPlayer : MonoBehaviour
         {
             objectAnim.SetBool(isRunningHash, false);
             policemanRB.velocity = Vector3.zero;
+            collision.gameObject.GetComponent<Animator>().SetBool(isDeadHash, true);
             playerCaught = true;
             gameManager.GameOver();
         }

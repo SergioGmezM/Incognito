@@ -766,6 +766,7 @@ GameObject:
   - component: {fileID: -732559771345120742}
   - component: {fileID: 4722193235519883025}
   - component: {fileID: 5273166890681743810}
+  - component: {fileID: -6923738322606966724}
   m_Layer: 0
   m_Name: Man
   m_TagString: Civilian
@@ -852,6 +853,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.83143854, y: 1.6118143, z: 0.70657825}
   m_Center: {x: 0.015607372, y: 0.7928623, z: 0.015606999}
+--- !u!114 &-6923738322606966724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 211153367527932883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 157b3bf717d7a3d429447d25f105dec3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &211153367527932887
 GameObject:
   m_ObjectHideFlags: 0

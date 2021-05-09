@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour
     private Rigidbody playerRB;
     private int isWalkingHash;
     private int isRunningHash;
+    private int attackTrigHash;
+    private int isDeadHash;
     [SerializeField] private float speed = 100.0f;
     [SerializeField] private float rotationSpeed = 0.5f;
     [SerializeField] private float maxSqrtVelocity = 500.0f;
@@ -28,6 +30,8 @@ public class PlayerController : MonoBehaviour
         playerRB = GetComponent<Rigidbody>();
         isWalkingHash = Animator.StringToHash("isWalking");
         isRunningHash = Animator.StringToHash("isRunning");
+        attackTrigHash = Animator.StringToHash("attackTrig");
+        isDeadHash = Animator.StringToHash("isDead");
         direction = Vector3.forward;
         canAttack = true;
         cooldownElapsedTime = cooldownTime;
@@ -180,8 +184,11 @@ public class PlayerController : MonoBehaviour
     {
         // Detect nearby colliders
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, 1);
+
+        hitColliders = FilterCivilians(hitColliders);
+
         // Two of them are the player and the ground respectively
-        if (hitColliders.Length >= 4)
+        if (hitColliders.Length >= 2)
         {
             incognito = true;
             gameManager.SetPlayerStatus(0);
@@ -194,7 +201,7 @@ public class PlayerController : MonoBehaviour
                 AttackCivilian(hitColliders);
             }
         }
-        else if (hitColliders.Length >= 3)
+        else if (hitColliders.Length >= 1)
         {
             // Show attack button on UI
 
@@ -211,6 +218,22 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private Collider[] FilterCivilians(Collider[] hitColliders)
+    {
+        List<Collider> hitCollidersFiltered = new List<Collider>(); ;
+
+        foreach (Collider hitCollider in hitColliders)
+        {
+            if (hitCollider.gameObject.CompareTag("Civilian") &&
+                !hitCollider.gameObject.GetComponent<Animator>().GetBool("isDead"))
+            {
+                hitCollidersFiltered.Add(hitCollider);
+            }
+        }
+
+        return hitCollidersFiltered.ToArray();
+    }
+
     private void AttackCivilian(Collider[] hitColliders)
     {
         if (Input.GetKeyDown(KeyCode.E))
@@ -220,7 +243,8 @@ public class PlayerController : MonoBehaviour
 
             for (int i = 0; i < hitColliders.Length; i++)
             {
-                if (!hitColliders[i].gameObject.CompareTag("Player") && !hitColliders[i].gameObject.CompareTag("Ground"))
+                if (hitColliders[i].gameObject.CompareTag("Civilian") &&
+                    !hitColliders[i].gameObject.GetComponent<Animator>().GetBool("isDead"))
                 {
                     float distance = Vector3.Distance(transform.position, hitColliders[i].gameObject.transform.position);
                     if (distance < minDistance)
@@ -232,13 +256,12 @@ public class PlayerController : MonoBehaviour
             }
 
             // Play meelee attack for player
-            // Play death animation for civilian
-            // Deactivate its collider
+            playerAnim.SetTrigger(attackTrigHash);
+            hitColliders[nearestCivilian].gameObject.GetComponent<Animator>().SetBool(isDeadHash, true);
+
             canAttack = false;
             int murderCommitted = hitColliders[nearestCivilian].gameObject.GetComponent<EscapeToSafety>().GetCurrentCluster();
             gameManager.SetMurderCommitted(murderCommitted);
-
-            Destroy(hitColliders[nearestCivilian].gameObject);
         }
     }
 }

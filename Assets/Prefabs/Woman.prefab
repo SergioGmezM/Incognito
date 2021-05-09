@@ -996,6 +996,7 @@ GameObject:
   - component: {fileID: 5397925197083241739}
   - component: {fileID: 8093867097562422351}
   - component: {fileID: -899377831052458088}
+  - component: {fileID: -7820844474360073246}
   m_Layer: 0
   m_Name: Woman
   m_TagString: Civilian
@@ -1083,6 +1084,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1.7668836, z: 0.815948}
   m_Center: {x: 2.536186e-17, y: 0.87424767, z: 0.0076685995}
+--- !u!114 &-7820844474360073246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6518601912840129411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 157b3bf717d7a3d429447d25f105dec3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6518601912840129415
 GameObject:
   m_ObjectHideFlags: 0

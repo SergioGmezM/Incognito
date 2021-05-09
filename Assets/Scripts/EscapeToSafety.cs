@@ -13,6 +13,7 @@ public class EscapeToSafety : MonoBehaviour
     private Animator objectAnim;
     private int isWalkingHash;
     private int isRunningHash;
+    private int isDeadHash;
     [SerializeField] private float speed = 300.0f;
     [SerializeField] private float maxSqrtVelocity = 700.0f;
     private bool escaping;
@@ -28,6 +29,7 @@ public class EscapeToSafety : MonoBehaviour
         objectAnim = GetComponent<Animator>();
         isWalkingHash = Animator.StringToHash("isWalking");
         isRunningHash = Animator.StringToHash("isRunning");
+        isDeadHash = Animator.StringToHash("isDead");
 
         objectAnim.SetBool(isWalkingHash, false);
         objectAnim.SetBool(isRunningHash, false);
@@ -45,6 +47,14 @@ public class EscapeToSafety : MonoBehaviour
                 currentCluster = i;
                 minDistance = distance;
             }
+        }
+    }
+
+    private void Update()
+    {
+        if (objectAnim.GetBool(isDeadHash))
+        {
+            enabled = false;
         }
     }
 
