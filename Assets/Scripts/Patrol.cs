@@ -13,8 +13,8 @@ public class Patrol : MonoBehaviour
     private Animator objectAnim;
     private int isWalkingHash;
     private int isRunningHash;
-    [SerializeField] private float speed = 200.0f;
-    [SerializeField] private float maxSqrtVelocity = 600.0f;
+    [SerializeField] private float speed = 300.0f;
+    [SerializeField] private float maxSqrtVelocity = 900.0f;
     [SerializeField] private float startWaitTime = 3.0f;
     private float waitTime;
     private int nextPoint;

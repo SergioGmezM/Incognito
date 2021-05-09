@@ -839,7 +839,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clusterPoints: []
   speed: 300
-  maxSqrtVelocity: 700
+  maxSqrtVelocity: 900
 --- !u!65 &5273166890681743810
 BoxCollider:
   m_ObjectHideFlags: 0

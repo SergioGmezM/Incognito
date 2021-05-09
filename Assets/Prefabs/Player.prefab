@@ -226,9 +226,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitSound: {fileID: 8300000, guid: b6ca81c79b0400042b4abe8fac2fab67, type: 3}
-  speed: 100
+  speed: 1200
   rotationSpeed: 0.5
-  maxSqrtVelocity: 500
+  maxSqrtVelocity: 700
   cooldownTime: 5
   incognito: 0
 --- !u!54 &2142395490850273039

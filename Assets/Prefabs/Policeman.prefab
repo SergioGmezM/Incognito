@@ -1104,7 +1104,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   patrolPoints: []
   speed: 200
-  maxSqrtVelocity: 600
+  maxSqrtVelocity: 900
   startWaitTime: 3
 --- !u!65 &2599041188101545086
 BoxCollider:

@@ -824,8 +824,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "WASD - MOVERSE\nSHIFT IZQ. (MANTENER) - CORRER\nE (CERCA DE UNA V\xCDCTIMA)
-    - DERRIBAR"
+  m_text: "WASD - CORRER\nSHIFT IZQ. (MANTENER) - CAMINAR\nE (CERCA DE UNA V\xCDCTIMA)
+    - DERRIBAR\n\nESC\xD3NDETE ENTRE LA GENTE PARA PASAR A INC\xD3GNITO"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2356,7 +2356,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "DERRIBA A TODAS LAS V\xCDCTIMAS SIN QUE LOS POLIC\xCDAS TE PILLEN"
+  m_text: DERRIBA A TODOS LOS CIVILES SIN QUE LOS AGENTES TE PILLEN
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4044,7 +4044,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0.5735764, y: 0, z: 0, w: 0.8191521}
-  m_LocalPosition: {x: 0, y: 12, z: -2}
+  m_LocalPosition: {x: 0, y: 17.06, z: -5.21}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -6608,7 +6608,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\xA1HUYE!"
+  m_text: "\xA1ESC\xD3NDETE!"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -7535,6 +7535,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 2822238783036669086, guid: 5006b0a80de42254caa74fb3daad7d90,
+        type: 3}
+      propertyPath: speed
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 2822238783036669086, guid: 5006b0a80de42254caa74fb3daad7d90,
+        type: 3}
+      propertyPath: maxSqrtVelocity
+      value: 700
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5006b0a80de42254caa74fb3daad7d90, type: 3}

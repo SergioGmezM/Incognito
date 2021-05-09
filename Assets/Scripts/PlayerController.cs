@@ -14,9 +14,9 @@ public class PlayerController : MonoBehaviour
     private int isRunningHash;
     private int attackTrigHash;
     private int isDeadHash;
-    [SerializeField] private float speed = 100.0f;
+    [SerializeField] private float speed = 200.0f;
     [SerializeField] private float rotationSpeed = 0.5f;
-    [SerializeField] private float maxSqrtVelocity = 500.0f;
+    [SerializeField] private float maxSqrtVelocity = 700.0f;
     [SerializeField] private float cooldownTime = 5;
     [SerializeField] private bool incognito = false;
     private bool isWalking;
@@ -69,17 +69,15 @@ public class PlayerController : MonoBehaviour
     {
         if (gameManager.IsGameActive())
         {
-            if (isWalking)
+            if (isRunning)
             {
-                if (playerRB.velocity.sqrMagnitude < maxSqrtVelocity)
+                if (playerRB.velocity.magnitude < (maxSqrtVelocity * 2))
                 {
                     playerRB.AddRelativeForce(Vector3.forward * speed);
                 }
-            }
-
-            if (isRunning)
+            } else if (isWalking)
             {
-                if (playerRB.velocity.sqrMagnitude < (maxSqrtVelocity * 2))
+                if (playerRB.velocity.magnitude < maxSqrtVelocity)
                 {
                     playerRB.AddRelativeForce(Vector3.forward * speed);
                 }
@@ -137,10 +135,10 @@ public class PlayerController : MonoBehaviour
             direction = new Vector3(1, 0, -1);
         }
 
-        bool runPressed = Input.GetKey(KeyCode.LeftShift);
+        bool walkPressed = Input.GetKey(KeyCode.LeftShift);
 
         // Idle to Walking
-        if (!isWalking && WASDPressed)
+        if (!isWalking && WASDPressed && walkPressed)
         {
             playerAnim.SetBool(isWalkingHash, true);
             playerAnim.SetBool(isRunningHash, false);
@@ -153,26 +151,26 @@ public class PlayerController : MonoBehaviour
         }
 
         // Walking to Running
-        if (!isRunning && WASDPressed && runPressed)
+        if (!isRunning && WASDPressed && !walkPressed)
         {
             playerAnim.SetBool(isWalkingHash, true);
             playerAnim.SetBool(isRunningHash, true);
         }
         // Running to Walking
-        else if (isRunning && WASDPressed && !runPressed)
+        else if (isRunning && WASDPressed && walkPressed)
         {
             playerAnim.SetBool(isWalkingHash, true);
             playerAnim.SetBool(isRunningHash, false);
         }
 
         // Idle to Running
-        if (!isWalking && !isRunning && WASDPressed && runPressed)
+        if (!isWalking && !isRunning && WASDPressed)
         {
             playerAnim.SetBool(isWalkingHash, false);
             playerAnim.SetBool(isRunningHash, true);
         }
         // Running to Idle
-        else if (!isWalking && isRunning && !WASDPressed && !runPressed)
+        else if (!isWalking && isRunning && !WASDPressed)
         {
             playerAnim.SetBool(isWalkingHash, false);
             playerAnim.SetBool(isRunningHash, false);
@@ -197,8 +195,6 @@ public class PlayerController : MonoBehaviour
             incognito = true;
             gameManager.SetPlayerStatus(0);
 
-            // Show attack button on UI
-
             // Commit murder
             if (canAttack)
             {
@@ -208,8 +204,6 @@ public class PlayerController : MonoBehaviour
         }
         else if (hitColliders.Length >= 1)
         {
-            // Show attack button on UI
-
             // Commit murder
             if (canAttack)
             {

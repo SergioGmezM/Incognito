@@ -15,7 +15,7 @@ public class EscapeToSafety : MonoBehaviour
     private int isRunningHash;
     private int isDeadHash;
     [SerializeField] private float speed = 300.0f;
-    [SerializeField] private float maxSqrtVelocity = 700.0f;
+    [SerializeField] private float maxSqrtVelocity = 900.0f;
     private bool escaping;
     private int currentCluster;
     private int nextCluster;
